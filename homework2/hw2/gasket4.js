@@ -13,6 +13,8 @@ var NumTimesToSubdivide = 3;
 
 //add a button to control the direction of rotation
 var direction = true;
+var move = true;
+var speed = 100;
 
 window.onload = function init()
 {
@@ -30,10 +32,10 @@ window.onload = function init()
     // Intial tetrahedron with equal length sides
 
     var vertices = [
-        vec3(  0.0000,  0.0000, -1.0000 ),
-        vec3(  0.0000,  0.9428,  0.3333 ),
-        vec3( -0.8165, -0.4714,  0.3333 ),
-        vec3(  0.8165, -0.4714,  0.3333 )
+        vec3(  0.0000,  0.0000, -0.5000 ),
+        vec3(  0.0000,  0.7071,  0.0000 ),
+        vec3( -0.4330,  0.0000,  0.2500 ),
+        vec3(  0.4330,  0.0000,  0.2500 )
     ];
 
     divideTetra( vertices[0], vertices[1], vertices[2], vertices[3],
@@ -76,8 +78,16 @@ window.onload = function init()
     thetaLoc = gl.getUniformLocation( program, "theta" );
 
     //Initialize event handlers
+    //for the button 1 and 2
     var mybutton = document.getElementById("ChangeDirectionButton");
     mybutton.addEventListener("click",function(){direction =!direction;});
+    var mybutton2 = document.getElementById("ChangeStaticButton");
+    mybutton2.addEventListener("click",function(){move =!move;});
+    //for the slider
+    document.getElementById("slide").onchange = function(event) {
+        speed = 100 - event.target.value;
+    };
+
     render();
 };
 
@@ -143,10 +153,15 @@ function divideTetra( a, b, c, d, count )
 
 function render()
 {
-    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    //theta +=0.1;
-    theta += (direction ? 0.1 : -0.1);
-    gl.uniform1f( thetaLoc, theta );
-    gl.drawArrays( gl.TRIANGLES, 0, points.length );
-    window.requestAnimFrame(render);
+        gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        //theta +=0.1;
+        if (move) {
+            theta += (direction ? 0.1 : -0.1);      
+        }
+        gl.uniform1f( thetaLoc, theta );
+        gl.drawArrays( gl.TRIANGLES, 0, points.length );
+        setTimeout(
+            function () {requestAnimFrame( render );},
+            speed
+        );
 }

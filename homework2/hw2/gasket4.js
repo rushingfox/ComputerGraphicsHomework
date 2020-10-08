@@ -7,7 +7,7 @@ var theta = 0.0;
 var thetaLoc;
 
 var points = [];
-var colors = [];
+//var colors = [];
 
 var NumTimesToSubdivide = 3;
 
@@ -59,13 +59,13 @@ window.onload = function init()
     // Create a buffer object, initialize it, and associate it with the
     //  associated attribute variable in our vertex shader
 
-    var cBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW );
+    //var cBuffer = gl.createBuffer();
+    //gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
+    //gl.bufferData( gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW );
 
-    var vColor = gl.getAttribLocation( program, "vColor" );
-    gl.vertexAttribPointer( vColor, 3, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vColor );
+    //var vColor = gl.getAttribLocation( program, "vColor" );
+    //gl.vertexAttribPointer( vColor, 3, gl.FLOAT, false, 0, 0 );
+    //gl.enableVertexAttribArray( vColor );
 
     var vBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
@@ -95,7 +95,7 @@ function triangle( a, b, c, color )
 {
 
     // add colors and vertices for one triangle
-
+/*
     var baseColors = [
         vec3(1.0, 0.0, 0.0),
         vec3(0.0, 1.0, 0.0),
@@ -103,11 +103,14 @@ function triangle( a, b, c, color )
         vec3(0.0, 0.0, 0.0)
     ];
 
-    colors.push( baseColors[color] );
+*/ 
+
+
+    //colors.push( baseColors[color] );
     points.push( a );
-    colors.push( baseColors[color] );
+    //colors.push( baseColors[color] );
     points.push( b );
-    colors.push( baseColors[color] );
+    //colors.push( baseColors[color] );
     points.push( c );
 }
 
